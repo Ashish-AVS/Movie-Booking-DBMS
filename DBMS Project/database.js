@@ -4,8 +4,8 @@
   const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
-    database: 'Movie_booking'
+    password: 'SVKT04247@S21',
+    database: 'movie_booking'
 
     // host: process.env.host,
     // user: process.env.user,
