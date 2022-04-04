@@ -1,7 +1,7 @@
 const { routes } = require("../app");
-const path = require("path");
 const router = require("express").Router();
 
 router.use("/api/users", require('./users'));
+router.use("/api/movies", require('./movie'));
 
 module.exports = router;
