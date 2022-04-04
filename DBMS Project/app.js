@@ -51,13 +51,6 @@ app.get("/", function(req,res){
     res.send("Welcome to the world of science fiction, conflicting theories, fantasies and some eccentric nerds!")
 });
 
-app.get("/user" ,   (req , res) => {
- connection.query('SELECT * FROM users' , (err , rows) => {
-     if(err) throw err;
-     res.json(rows);
- })
-})
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     let err = new Error("Service not available currently");
@@ -82,10 +75,6 @@ app.use(function (err, req, res, next) {
         res.render('error')
     }
 })
-
-
-
-
 
 app.listen(PORT , function() {
     console.log(`SERVER STARTED ON ${PORT}`);
