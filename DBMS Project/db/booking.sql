@@ -15,6 +15,10 @@ ADD FOREIGN KEY (uid) references users(uid);
 ALTER TABLE booking
 ADD FOREIGN KEY (mid) references movie(mid);
 
+INSERT INTO `movie_booking`.`booking` (`bid`, `cost`, `uid`, `mid`, `seat_id`, `sid`, `book_date`) VALUES ('1', '100', '1', '1', '1', '1', '20220411');
+INSERT INTO `movie_booking`.`booking` (`bid`, `cost`, `uid`, `mid`, `seat_id`, `sid`, `book_date`) VALUES ('2', '100', '2', '2', '1', '2', '20220411');
+
+
 /*
 T0-DO :  
 ALTER TABLE booking
