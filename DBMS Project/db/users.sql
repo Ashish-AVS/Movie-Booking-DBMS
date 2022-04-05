@@ -7,3 +7,8 @@ CREATE TABLE `Movie_booking`.`users` (
   PRIMARY KEY (`uid`),
   UNIQUE INDEX `uid_UNIQUE` (`uid` ASC) VISIBLE,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
+
+  --prelim data
+INSERT INTO `movie_booking`.`users` (`uid`, `first_name`, `last_name`, `email`, `credits`) VALUES ('2', 'Akshat', 'Oke', 'oke@oke.com', '70');
+INSERT INTO `movie_booking`.`users` (`uid`, `first_name`, `last_name`, `email`, `credits`) VALUES ('3', 'Vk', 'Vk', 'vk@vk.com', '71');
+
