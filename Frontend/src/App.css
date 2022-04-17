@@ -4,17 +4,25 @@
   box-sizing: border-box;
 }
 
-body {
-  padding: 2rem;
+button:focus {
+  background-color: initial !important;
 }
-
+h2 {
+  color: rgb(17, 149, 156);
+}
+img {
+  transition: 0.4s;
+}
+.card-image:hover img {
+  filter: brightness(0.7);
+}
 button {
   margin: 2rem 0;
   padding: 1rem 2rem;
   width: 120px;
   cursor: pointer;
 }
-
+/* 
 img {
   width: 120px;
-}
+} */
