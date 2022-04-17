@@ -1,52 +1,55 @@
-const app = require("express")();
-var dotenv = require('dotenv')
-var cors = require('cors')
-var helmet = require('helmet')
-var morgan = require('morgan')
-var express = require('express')
-var createError = require('http-errors')
+const app = require("express") ();
+const bodyParser = require("body-parser");
+const cors = require('cors')
+const morgan = require('morgan')
+const connection = require('./database');
 var winston = require('./config/winston')
-module.exports = router
 
+const PORT = process.env.PORT || 5000;
 
-const mysql = require("mysql");
-dotenv.config()
+require('dotenv').config()
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.use(helmet())
-
-// CORS
+// CORS 
 const corsOptions = {
-  origin: (origin, callback) => {
-      callback(null, true)
-  }
+    origin: (origin, callback) => {
+        callback(null, true)
+    }
 }
 app.use(cors(corsOptions))
 
 // Logger
 app.use(
-  morgan(
-      function (tokens, req, res) {
-          var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-          return [
-              tokens.date(req, res, 'clf'),
-              tokens.method(req, res),
-              tokens.url(req, res),
-              tokens.status(req, res),
-              ip,
-              req.rid,
-              tokens.res(req, res, 'content-length'),
-              '-',
-              tokens['response-time'](req, res),
-              'ms'
-          ].join(' ')
-      }, {
-          stream: winston.accessLog.stream
-      }
-  )
+    morgan(
+        function (tokens, req, res) {
+            var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+            return [
+                tokens.date(req, res, 'clf'),
+                tokens.method(req, res),
+                tokens.url(req, res),
+                tokens.status(req, res),
+                ip,
+                req.rid,
+                tokens.res(req, res, 'content-length'),
+                '-',
+                tokens['response-time'](req, res),
+                'ms'
+            ].join(' ')
+        }, {
+            stream: winston.accessLog.stream
+        }
+    )
 )
 
-// rest api routes
+
+// Routes configuration
 app.use(require('./routes'))
+
+
+app.get("/", function(req,res){
+    res.send("Welcome to the world of science fiction, conflicting theories, fantasies and some eccentric nerds!")
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -73,29 +76,11 @@ app.use(function (err, req, res, next) {
     }
 })
 
-module.exports = app
+app.listen(PORT , function() {
+    console.log(`SERVER STARTED ON ${PORT}`);
+})
 
 
-
-
-const db = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "",
-  database: "Movie_booking",
-});
-
-
-// app.get("/insert", (req, res) => {
-//   db.query(
-//     'INSERT INTO Users (Name, DON) Values ("Ashish", 200000)',
-//     (err, result) => {
-//       if (err) return err;
-//       res.send(result);
-//     }
-//   );
-// });
-
-app.listen(3001, () => {
-  console.log(`server running!`);
-});
+/**
+ * ALL SQL TABLE NAMES AND SCHEMA NAMES ARE LOWERCASE
+ */
