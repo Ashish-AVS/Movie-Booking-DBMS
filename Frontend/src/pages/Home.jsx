@@ -5,9 +5,26 @@ import NavBar from "../components/NavBar";
 import MovieScreen from "../components/MovieScreen";
 import BasicTabs from "../components/MovieTabs";
 import { MoviesContext } from "../App";
+import axios from "axios";
+import { url } from "../movies";
+import hash53 from "../string_hash";
 const Home = () => {
   const { movies } = React.useContext(MoviesContext);
   const { user, isAuthenticated } = useAuth0();
+  //API
+  useEffect(() => {
+    if (isAuthenticated)
+      axios
+        .post(`${url}/api/user/add`, {
+          first_name: user.name,
+          last_name: "",
+          email: user.email,
+          // uid: hash53(user.email),
+        })
+        .then((data) => {
+          if (data.uid) localStorage.set("uid", data.uid);
+        });
+  });
   let screens = 0;
   movies.forEach((m) => {
     if (m.screen > screens) screens = m.screen;

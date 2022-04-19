@@ -8,10 +8,12 @@ import Home from './pages/Home';
 import { CircularProgress } from '@mui/material';
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import MovieDetailsPage from "./pages/MovieDetail"
-import { movies as m } from "./movies"
+import { movies as m, url } from "./movies"
 import BookingPage from './pages/Booking';
 import NavBar from './components/NavBar';
 import ProfilePage from './pages/Profile';
+import ProtectedRoute from '../utils/ProtectedRoute';
+import axios from 'axios';
 
 export const MoviesContext = React.createContext({
   movie: {},
@@ -26,10 +28,16 @@ function App() {
   const [movies, setMs] = React.useState([]);
   const [booking, setBooking] = React.useState({});
   const value = { movie, setMovie, movies, booking, setBooking };
+  //API
   React.useEffect(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
+    //   setMs(m);
+    // }, 500);
+    axios.get(`${url}/api/movies`).then(data => {
+      setMs(data);
+    }).catch(err => {
       setMs(m);
-    }, 500);
+    })
   });
   if (isLoading) return <CircularProgress />//<div>Loading...</div>
   return (
@@ -40,7 +48,7 @@ function App() {
       <LogoutButton /> */}
         {/* <Profile /> */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <ProtectedRoute path="/" element={<Home />} />
           <Route path='profile' element={<ProfilePage />} />
           <Route path="movie" element={<MovieDetailsPage />} />
           <Route path="booking" element={<BookingPage />} />
