@@ -10,9 +10,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 export default function ProfilePage() {
   const [movies, setMovies] = React.useState([]);
   const { user } = useAuth0();
-
+  //API
   useEffect(() => {
-    axios.get(url).then((data) => {
+    axios.get(`${url}/api/user/${user.email}`).then((data) => {
       setMovies(data);
       //remove
       setMovies(m);

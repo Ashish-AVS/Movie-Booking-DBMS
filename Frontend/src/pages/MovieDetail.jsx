@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { url } from "../movies";
 
 export default function MovieDetailsPage() {
   const { movie, setMovie, movies, setBooking } =
@@ -18,17 +19,31 @@ export default function MovieDetailsPage() {
   const handleClick = (e) => {
     e.preventDefault();
     load(true);
+    //API
     axios
-      .get(`https://google.com`)
+      .post(`${url}/api/booking`, {
+        uid: localStorage.getItem("uid"),
+        mid: movie.mid,
+        cost: movie.cost,
+        seat_id: 0,
+        sid: movie.screen,
+        book_date: new Date()
+          .toLocaleDateString()
+          .replace("/", "")
+          .split("")
+          .reverse()
+          .join(""),
+      })
       .then((res) => {
         load(false);
-        const persons = res.data;
-        this.setState({ persons });
+        // const persons = res.data;
+        setBooking(res);
+        // this.setState({ persons });
         n("/booking");
       })
       .catch((e) => {
         load(false);
-        n("/booking");
+        // n("/booking");
       });
   };
   return (
