@@ -12,7 +12,7 @@ import { movies as m, url } from "./movies"
 import BookingPage from './pages/Booking';
 import NavBar from './components/NavBar';
 import ProfilePage from './pages/Profile';
-import ProtectedRoute from './utils/ProtectedRoute;
+import ProtectedRoute from './utils/ProtectedRoute';
 import axios from 'axios';
 
 export const MoviesContext = React.createContext({
