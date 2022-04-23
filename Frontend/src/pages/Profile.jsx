@@ -12,12 +12,12 @@ export default function ProfilePage() {
   const { user } = useAuth0();
   //API
   useEffect(() => {
-    axios.get(`${url}/api/user/${user.email}`).then((data) => {
+    axios.get(`${url}/api/users/${user.email}`).then((data) => {
       setMovies(data);
       //remove
       setMovies(m);
     });
-  });
+  }, []);
   return (
     <>
       <NavBar />

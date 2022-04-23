@@ -46,6 +46,7 @@ export default function MovieDetailsPage() {
         // n("/booking");
       });
   };
+  const fallback = 'https://cdn.shopify.com/s/files/1/0057/3728/3618/products/shang-chi-and-the-legend-of-the-ten-rings_otm2d4ub_480x.progressive.jpg?v=1631198179'
   return (
     <>
       <NavBar />
@@ -53,21 +54,21 @@ export default function MovieDetailsPage() {
         className="md"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
-    url("${movie?.img}")`,
+    url("${movie?.img ?? fallback}")`,
         }}
       >
         <Typography variant="h2">
-          {movie?.title} (Screen {movie?.screen})
+          {movie?.name} (Screen {movie?.screen})
         </Typography>
         {/* <h2>
           {movie?.title} (Screen {movie?.screen})
         </h2> */}
         <div>
-          {movie?.tags.map((t) => (
+          {movie?.tags?.map((t) => (
             <span>{t}</span>
           ))}
           {/* <span>{movie?.tags}</span> */}
-          <span className="time">1h47m</span>
+          <span className="time">{Math.floor(movie.duration/60)}h{movie.duration%60}m</span>
         </div>
         <p>{movie?.desc}</p>
 

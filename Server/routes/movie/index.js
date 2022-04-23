@@ -34,7 +34,7 @@ router.delete('/:id', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    const sql = `SELECT * FROM movie`
+    const sql = `select * , sid as screen from movie m natural join display`
     connection.query(sql , (err , rows) => {
         if(err) throw err;
         res.json(rows);

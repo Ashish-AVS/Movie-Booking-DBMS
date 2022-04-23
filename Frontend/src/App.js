@@ -12,7 +12,7 @@ import { movies as m, url } from "./movies"
 import BookingPage from './pages/Booking';
 import NavBar from './components/NavBar';
 import ProfilePage from './pages/Profile';
-import ProtectedRoute from './utils/ProtectedRoute';
+// import ProtectedRoute from './utils/ProtectedRoute';
 import axios from 'axios';
 
 export const MoviesContext = React.createContext({
@@ -33,12 +33,13 @@ function App() {
     // setTimeout(() => {
     //   setMs(m);
     // }, 500);
-    axios.get(`${url}/api/movies`).then(data => {
-      setMs(data);
+    axios.get(`${url}/api/movie`).then(data => {
+      console.log(data);
+      setMs(data.data);
     }).catch(err => {
       setMs(m);
     })
-  });
+  }, []);
   if (isLoading) return <CircularProgress />//<div>Loading...</div>
   return (
     <MoviesContext.Provider value={value}>
@@ -48,7 +49,7 @@ function App() {
       <LogoutButton /> */}
         {/* <Profile /> */}
         <Routes>
-          <ProtectedRoute path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path='profile' element={<ProfilePage />} />
           <Route path="movie" element={<MovieDetailsPage />} />
           <Route path="booking" element={<BookingPage />} />

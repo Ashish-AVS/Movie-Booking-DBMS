@@ -49,12 +49,13 @@ const Times = { m: "m", a: "a", e: "e" };
  */
 export default function BasicTabs({ movies, screenNo }) {
   const [value, setValue] = React.useState(0);
-
+  console.log("Tabs , ", movies);
+  movies=movies[0]
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   // const [movies, setMovies] = React.useState([]);
-  React.useEffect(() => {});
+  // React.useEffect(() => {});
   return (
     <Box sx={{ width: "100%" }}>
       <Typography variant="h2">Screen {screenNo}</Typography>
@@ -72,21 +73,23 @@ export default function BasicTabs({ movies, screenNo }) {
       </Box>
       <TabPanel value={value} index={0}>
         {movies
-          .filter((m) => m.timeOfDay === Times.m)
+          .filter((m) => {
+            console.log("m " , m);
+            return Number(m.start_time.substring(0,2)) < 12;})
           .map((movie) => (
             <MovieCard {...movie} key={movie.mid} />
           ))}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {movies
-          .filter((m) => m.timeOfDay === Times.a)
+          .filter((m) => Number(m.start_time.substring(0,2)) < 17 && Number(m.start_time.substring(0,2))>=12)
           .map((movie) => (
             <MovieCard {...movie} key={movie.mid} />
           ))}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {movies
-          .filter((m) => m.timeOfDay === Times.e)
+          .filter((m) => Number(m.start_time.substring(0,2)) >= 17)
           .map((movie) => (
             <MovieCard {...movie} key={movie.mid} />
           ))}

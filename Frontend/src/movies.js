@@ -40,4 +40,4 @@ export const movies = [
     mid: 4
   },
 ];
-export const url = "";
+export const url = "http://localhost:5000";

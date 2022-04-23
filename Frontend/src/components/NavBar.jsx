@@ -9,7 +9,7 @@ const NavBar = () => (
       {/* <a href="/" class="brand-logo">
         Movie Booking System
       </a> */}
-      <Link to="/" className="brand-logo">
+      <Link to="/" className="brand-logo center">
         Movie Booking System
       </Link>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
