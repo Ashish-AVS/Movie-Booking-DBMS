@@ -5,6 +5,7 @@ const connection = require('../../database');
 router.post('/add', (req, res, next) => {
      const sql = `INSERT INTO users SET ?`
      connection.query(sql, req.body , (err , rows) => {
+         //TODO Send uid back
          if(err) throw err;
          res.json(rows);
      })
