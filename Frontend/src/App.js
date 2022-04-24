@@ -12,7 +12,6 @@ import { movies as m, url } from "./movies"
 import BookingPage from './pages/Booking';
 import NavBar from './components/NavBar';
 import ProfilePage from './pages/Profile';
-// import ProtectedRoute from './utils/ProtectedRoute';
 import axios from 'axios';
 
 export const MoviesContext = React.createContext({
@@ -40,7 +39,7 @@ function App() {
       setMs(m);
     })
   }, []);
-  if (isLoading) return <CircularProgress />//<div>Loading...</div>
+  if (isLoading) return <CircularProgress /> 
   return (
     <MoviesContext.Provider value={value}>
 
@@ -56,6 +55,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       {!isAuthenticated && <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}><LoginButton /></div>}
+
     </MoviesContext.Provider>
   );
 }

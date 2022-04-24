@@ -16,7 +16,7 @@ import { Typography } from "@mui/material";
  */
 export default function Ticket() {
   let { booking } = React.useContext(MoviesContext);
-  if (!booking.seat) {
+  if (!booking.seat_id) {
     booking = movies[0];
     booking.seat_id = 15;
     booking.slot = "A";

@@ -19,25 +19,22 @@ export default function MovieDetailsPage() {
   const handleClick = (e) => {
     e.preventDefault();
     load(true);
+    const postMovie = {...movie}
+    delete postMovie.name;
+    delete postMovie.duration;
+    delete postMovie.desc;
+    delete postMovie.screen;
+    delete postMovie.date;
+    let today = new Date();
+    postMovie.book_date = "" + today.getFullYear() + (today.getMonth() + 1).toString().padStart(2, "0") + today.getDate().toString().padStart(2, "0")
+    postMovie.uid = localStorage.getItem("uid");
     //API
     axios
-      .post(`${url}/api/booking`, {
-        uid: localStorage.getItem("uid"),
-        mid: movie.mid,
-        cost: movie.cost,
-        seat_id: 0,
-        sid: movie.screen,
-        book_date: new Date()
-          .toLocaleDateString()
-          .replace("/", "")
-          .split("")
-          .reverse()
-          .join(""),
-      })
+      .post(`${url}/api/booking`, postMovie) 
       .then((res) => {
         load(false);
         // const persons = res.data;
-        setBooking(res);
+        setBooking(res.data);
         // this.setState({ persons });
         n("/booking");
       })

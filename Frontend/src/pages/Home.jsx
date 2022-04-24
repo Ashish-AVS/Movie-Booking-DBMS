@@ -15,6 +15,7 @@ const Home = () => {
   //API
   useEffect(() => {
     if (isAuthenticated)
+        if (true)
       axios
         .post(`${url}/api/users/add`, {
           first_name: user.name,
@@ -31,23 +32,7 @@ const Home = () => {
         })
 
   },[]);
-  let screens = 5;
-  // movies.forEach((m) => {
-  //   if (m.screen > screens) screens = m.screen;
-  // });
-
-
-  // setScreenSections(prevState => {
-  //   let newArrr = [...prevState];
-  //   for (let i = 1; i <= screens; i++) {
-  //     newArrr.push(
-  //       <BasicTabs screenNo={i} movies={movies.filter((m) => m.screen = i)} />
-  //     );
-  //   }
-  //   return newArrr;
-  // });
-
-  
+  let screens = 5;  
   console.log('screenSections', screenSections);
 
   return (
