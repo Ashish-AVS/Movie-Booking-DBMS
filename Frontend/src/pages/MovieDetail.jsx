@@ -17,7 +17,7 @@ export default function MovieDetailsPage() {
   const [loading, load] = useState(false);
   const n = useNavigate();
   const handleClick = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     load(true);
     const postMovie = {...movie}
     delete postMovie.name;
@@ -25,6 +25,7 @@ export default function MovieDetailsPage() {
     delete postMovie.desc;
     delete postMovie.screen;
     delete postMovie.date;
+    delete postMovie.genre;
     let today = new Date();
     postMovie.book_date = "" + today.getFullYear() + (today.getMonth() + 1).toString().padStart(2, "0") + today.getDate().toString().padStart(2, "0")
     postMovie.uid = localStorage.getItem("uid");
@@ -34,13 +35,13 @@ export default function MovieDetailsPage() {
       .then((res) => {
         load(false);
         // const persons = res.data;
+        localStorage.setItem("ticketData", res.data);
         setBooking(res.data);
-        // this.setState({ persons });
         n("/booking");
       })
       .catch((e) => {
         load(false);
-        // n("/booking");
+        // n("/booking"); 
       });
   };
   const fallback = 'https://cdn.shopify.com/s/files/1/0057/3728/3618/products/shang-chi-and-the-legend-of-the-ten-rings_otm2d4ub_480x.progressive.jpg?v=1631198179'
@@ -61,10 +62,10 @@ export default function MovieDetailsPage() {
           {movie?.title} (Screen {movie?.screen})
         </h2> */}
         <div>
-          {movie?.tags?.map((t) => (
+          {movie?.genre?.map((t) => (
             <span>{t}</span>
           ))}
-          {/* <span>{movie?.tags}</span> */}
+          {/* <span>{movie?.genre}</span> */}
           <span className="time">{Math.floor(movie.duration/60)}h{movie.duration%60}m</span>
         </div>
         <p>{movie?.desc}</p>

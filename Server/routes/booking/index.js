@@ -1,16 +1,7 @@
 const router = require('express').Router()
 const connection = require('../../database');
 //Booking By User-id
-router.get('/:id' , (req , res) => {
-    const sql = `SELECT * FROM booking where uid = ?`;
-    connection.query(sql , req.params.id , (err , rows) => {
-        if(err) {
-         res.send(err);
-         throw err;
-        }
-        res.json(rows);
-    })
-})
+
 
 router.post('/', (req, res) => {
     const sql1 = `select count(seat_id) + 1 as seat_id  from booking group by mid , sid , book_date , start_time having mid = ${req.body.mid} and sid = ${req.body.sid} and book_date = '${req.body.book_date}' and  start_time = '${req.body.start_time}';`

@@ -12,10 +12,9 @@ export default function ProfilePage() {
   const { user } = useAuth0();
   //API
   useEffect(() => {
-    axios.get(`${url}/api/users/${user.email}`).then((data) => {
-      setMovies(data);
+    axios.get(`${url}/api/users/bookings/${localStorage.getItem("uid")}`).then((data) => {
+      setMovies(data.data);
       //remove
-      setMovies(m);
     });
   }, []);
   return (

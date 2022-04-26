@@ -33,11 +33,25 @@ router.delete('/:id', (req, res) => {
     })
 })
 
+
 router.get('/', (req, res) => {
     const sql = `select * , sid as screen from movie m natural join display`
+    const genreSql = `select * from movie_genre`
+
+    
     connection.query(sql , (err , rows) => {
         if(err) throw err;
-        res.json(rows);
+        // res.json(rows);
+        connection.query(genreSql, (err, gRows) => {
+            if(err) throw err;
+            const movies = rows.map(movie => {
+                movie.genre = gRows.filter(row => row.mid === movie.mid).map(row => row.genre)
+                return movie;
+            })
+            // return movies;
+            res.json(movies)
+        })
     })
+
 });
 module.exports = router;

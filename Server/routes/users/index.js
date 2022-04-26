@@ -1,6 +1,16 @@
 const router = require('express').Router()
 const connection = require('../../database');
 
+router.get('/bookings/:id' , (req , res) => {
+    const sql = `SELECT * FROM booking natural join movie where uid = ?`;
+    connection.query(sql , req.params.id , (err , rows) => {
+        if(err) {
+         res.send(err);
+         throw err;
+        }
+        res.json(rows);
+    })
+})
 
 router.post('/add', (req, res, next) => {
      const sql = `INSERT INTO users SET ?`
